@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeFix Web - Learning Space</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="learning.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> กลับหน้าหลัก</a>
+            <h1>Learning Space</h1>
+        </div>
+        <div class="nav-profile">
+            <span>นักเรียน: Guest</span>
+            <div class="profile-pic"><i class="fas fa-user"></i></div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Subject Selection Area -->
+        <section class="subjects-section">
+            <h2 class="section-title">วิชาเรียนของคุณ</h2>
+            <div class="subjects-grid">
+                <div class="subject-card active" onclick="selectSubject('math')">
+                    <div class="sub-icon math"><i class="fas fa-calculator"></i></div>
+                    <h3>คณิตศาสตร์</h3>
+                    <p>สมการ, เรขาคณิต, สถิติ</p>
+                </div>
+                <div class="subject-card" onclick="selectSubject('science')">
+                    <div class="sub-icon science"><i class="fas fa-flask"></i></div>
+                    <h3>วิทยาศาสตร์</h3>
+                    <p>ชีววิทยา, เคมี, ฟิสิกส์</p>
+                </div>
+                <div class="subject-card" onclick="selectSubject('english')">
+                    <div class="sub-icon english"><i class="fas fa-language"></i></div>
+                    <h3>ภาษาอังกฤษ</h3>
+                    <p>Grammar, Vocab, conversation</p>
+                </div>
+                <div class="subject-card" onclick="selectSubject('history')">
+                    <div class="sub-icon history"><i class="fas fa-landmark"></i></div>
+                    <h3>ประวัติศาสตร์</h3>
+                    <p>ไทย, สากล, เหตุการณ์สำคัญ</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Learning Content Area -->
+        <section class="content-section" id="learning-content">
+            <div class="content-header">
+                <h2 id="current-subject-title">คณิตศาสตร์ (Mathematics)</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('summary')">สรุปเนื้อหา</button>
+                    <button class="tab-btn" onclick="switchTab('examples')">ตัวอย่าง</button>
+                    <button class="tab-btn" onclick="switchTab('quiz')">แบบฝึกหัด</button>
+                </div>
+            </div>
+
+            <!-- TAB: Summary -->
+            <div id="tab-summary" class="tab-content active-content">
+                <div class="note-card">
+                    <h3>📌 พีทาโกรัส (Pythagoras)</h3>
+                    <p>ทฤษฎีบทที่ใช้หาความยาวด้านของสามเหลี่ยมมุมฉาก</p>
+                    <div class="formula-box">c² = a² + b²</div>
+                    <p class="description">โดยที่ c คือด้านตรงข้ามมุมฉาก, ส่วน a และ b คือด้านประกอบมุมฉาก</p>
+                </div>
+                <div class="note-card">
+                    <h3>📌 สมการเชิงเส้นตัวแปรเดียว</h3>
+                    <p>การหาค่า x จากสมการที่มีดีกรีสูงสุดเป็น 1</p>
+                    <div class="formula-box">ax + b = 0</div>
+                </div>
+            </div>
+
+            <!-- TAB: Examples -->
+            <div id="tab-examples" class="tab-content">
+                <div class="example-card">
+                    <h3>ตัวอย่างที่ 1: การใช้พีทาโกรัส</h3>
+                    <p>กำหนดให้สามเหลี่ยมมุมฉากมีด้านประกอบมุมฉากยาว 3 และ 4 จงหาด้านตรงข้ามมุมฉาก (c)</p>
+                    <div class="step-box">
+                        <p><strong>วิธีทำ:</strong></p>
+                        <p>จากสูตร c² = a² + b²</p>
+                        <p>c² = 3² + 4²</p>
+                        <p>c² = 9 + 16 = 25</p>
+                        <p>c = 5</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Quiz -->
+            <div id="tab-quiz" class="tab-content">
+                <div class="quiz-card">
+                    <h3>ข้อที่ 1: ถ้า a=5, b=12 แล้ว c (ด้านตรงข้ามมุมฉาก) มีค่าเท่าไร?</h3>
+                    <div class="options">
+                        <button class="opt-btn" onclick="checkAnswer(this, false)">10</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, true)">13</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, false)">15</button>
+                        <button class="opt-btn" onclick="checkAnswer(this, false)">17</button>
+                    </div>
+                    <p class="feedback"></p>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="learning.js"></script>
+</body>
+
+</html>

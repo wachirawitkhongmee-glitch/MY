@@ -4,96 +4,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบบัญชีรายรับ-รายจ่าย</title>
+    <title>LifeFix Web - Portal</title>
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap"
         rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-primary: #f8fafc;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Poppins', 'Sarabun', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background */
+        .ambient-light {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(192, 132, 252, 0.15) 0%, transparent 40%);
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .portal-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+            z-index: 0;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            z-index: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .portal-card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-wallet .icon-wrapper {
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .card-learning .icon-wrapper {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .portal-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            z-index: 1;
+        }
+
+        .portal-card p {
+            color: #94a3b8;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="background-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+    <div class="ambient-light"></div>
 
     <div class="container">
         <header>
-            <h1><i class="fas fa-wallet"></i> My Wallet</h1>
-            <p>ติดตามสถานะทางการเงินของคุณ</p>
+            <h1>LifeFix Web</h1>
+            <p class="subtitle">เลือกโหมดการใช้งานที่คุณต้องการ</p>
         </header>
 
-        <!-- Balance Section -->
-        <div class="balance-container">
-            <div class="balance-card total">
-                <h3>ยอดเงินคงเหลือ</h3>
-                <h2 id="balance">฿0.00</h2>
-            </div>
-            <div class="stats-row">
-                <div class="balance-card income">
-                    <h3><i class="fas fa-arrow-up"></i> รายรับ</h3>
-                    <p id="money-plus" class="money plus">+฿0.00</p>
+        <div class="portal-grid">
+            <a href="money.html" class="portal-card card-wallet">
+                <div class="icon-wrapper">
+                    <i class="fas fa-wallet"></i>
                 </div>
-                <div class="balance-card expense">
-                    <h3><i class="fas fa-arrow-down"></i> รายจ่าย</h3>
-                    <p id="money-minus" class="money minus">-฿0.00</p>
-                </div>
-            </div>
-        </div>
+                <h2>Smart Wallet</h2>
+                <p>จัดการรายรับ-รายจ่ายอย่างเป็นระบบ</p>
+            </a>
 
-        <!-- Add Transaction Form -->
-        <div class="glass-panel form-panel">
-            <h3><i class="fas fa-plus-circle"></i> เพิ่มรายการใหม่</h3>
-            <form id="form">
-                <div class="form-control">
-                    <label for="text">ชื่อรายการ</label>
-                    <input type="text" id="text" placeholder="ระบุชื่อรายการ..." />
+            <a href="learning.html" class="portal-card card-learning">
+                <div class="icon-wrapper">
+                    <i class="fas fa-book-reader"></i>
                 </div>
-                <div class="form-control">
-                    <label for="amount">จำนวนเงิน <br />
-                        <span class="small-text">(ใส่เครื่องหมาย - สำหรับรายจ่าย, เช่น -500)</span>
-                    </label>
-                    <input type="number" id="amount" placeholder="ระบุจำนวนเงิน..." />
-                </div>
-                <div class="form-control type-selector">
-                    <!-- Optional helper buttons to set sign -->
-                </div>
-                <button class="btn">เพิ่มรายการ</button>
-            </form>
-        </div>
-
-        <!-- Transaction Table -->
-        <div class="glass-panel table-panel">
-            <h3><i class="fas fa-history"></i> ประวัติรายการ</h3>
-            <div class="table-responsive">
-                <table class="transaction-table">
-                    <thead>
-                        <tr>
-                            <th>วันที่</th>
-                            <th>รายการ</th>
-                            <th class="text-right">จำนวนเงิน</th>
-                            <th class="text-center">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <ul id="list" style="display:none;"></ul>
-                    <!-- hidden list for fallback logic references if needed, but we used table -->
-                    <tbody id="transaction-table-body">
-                        <!-- Rows will be added here by JS -->
-                    </tbody>
-                </table>
-                <div id="empty-state" class="empty-state">
-                    <i class="fas fa-file-invoice"></i>
-                    <p>ยังไม่มีรายการบันทึก</p>
-                </div>
-            </div>
+                <h2>Learning Space</h2>
+                <p>ทบทวนบทเรียน สรุปเนื้อหา และแบบฝึกหัด</p>
+            </a>
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 
 </html>
