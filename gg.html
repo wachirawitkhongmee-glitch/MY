@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>บัญชีรายรับรายจ่าย</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(#eaf4ff, #ffffff);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    background: white;
+    width: 360px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #2563eb;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 15px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+.list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+.income {
+    color: green;
+}
+
+.expense {
+    color: red;
+}
+
+.balance {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💰 บัญชีรายรับ–รายจ่าย</h1>
+
+    <input id="detail" placeholder="รายละเอียด เช่น ค่าขนม">
+    <input id="amount" type="number" placeholder="จำนวนเงิน">
+    
+    <select id="type">
+        <option value="income">รายรับ</option>
+        <option value="expense">รายจ่าย</option>
+    </select>
+
+    <button onclick="addItem()">เพิ่มรายการ</button>
+
+    <div class="list" id="list"></div>
+
+    <div class="balance" id="balance">ยอดคงเหลือ: 0 บาท</div>
+</div>
+
+<script>
+let balance = 0;
+
+function addItem() {
+    const detail = document.getElementById("detail").value;
+    const amount = Number(document.getElementById("amount").value);
+    const type = document.getElementById("type").value;
+
+    if (detail === "" || amount === 0) {
+        alert("กรอกข้อมูลให้ครบก่อนนะ");
+        return;
+    }
+
+    const item = document.createElement("div");
+    item.classList.add("item");
+
+    if (type === "income") {
+        item.innerHTML = `<span>${detail}</span><span class="income">+${amount}</span>`;
+        balance += amount;
+    } else {
+        item.innerHTML = `<span>${detail}</span><span class="expense">-${amount}</span>`;
+        balance -= amount;
+    }
+
+    document.getElementById("list").appendChild(item);
+    document.getElementById("balance").innerText = `ยอดคงเหลือ: ${balance} บาท`;
+
+    document.getElementById("detail").value = "";
+    document.getElementById("amount").value = "";
+}
+</script>
+
+</body>
+</html>

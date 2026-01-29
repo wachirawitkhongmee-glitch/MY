@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>บัญชีรายรับ–รายจ่าย (ตาราง)</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(#eaf4ff, #ffffff);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #2563eb;
+}
+
+input, select {
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    margin: 5px;
+}
+
+button {
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: #3b82f6;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.income {
+    color: green;
+    font-weight: bold;
+}
+
+.expense {
+    color: red;
+    font-weight: bold;
+}
+
+.balance {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💰 บัญชีรายรับ–รายจ่าย</h1>
+
+    <input id="detail" placeholder="รายละเอียด">
+    <input id="amount" type="number" placeholder="จำนวนเงิน">
+    <select id="type">
+        <option value="income">รายรับ</option>
+        <option value="expense">รายจ่าย</option>
+    </select>
+    <button onclick="addRow()">เพิ่มรายการ</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ลำดับ</th>
+                <th>รายละเอียด</th>
+                <th>ประเภท</th>
+                <th>จำนวนเงิน</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <div class="balance" id="balance">ยอดคงเหลือ: 0 บาท</div>
+</div>
+
+<script>
+let balance = 0;
+let count = 1;
+
+function addRow() {
+    const detail = document.getElementById("detail").value;
+    const amount = Number(document.getElementById("amount").value);
+    const type = document.getElementById("type").value;
+
+    if (detail === "" || amount === 0) {
+        alert("กรอกข้อมูลให้ครบก่อนนะ");
+        return;
+    }
+
+    const row = document.createElement("tr");
+
+    if (type === "income") {
+        row.innerHTML = `
+            <td>${count}</td>
+            <td>${detail}</td>
+            <td>รายรับ</td>
+            <td class="income">+${amount}</td>
+        `;
+        balance += amount;
+    } else {
+        row.innerHTML = `
+            <td>${count}</td>
+            <td>${detail}</td>
+            <td>รายจ่าย</td>
+            <td class="expense">-${amount}</td>
+        `;
+        balance -= amount;
+    }
+
+    document.getElementById("tableBody").appendChild(row);
+    document.getElementById("balance").innerText = `ยอดคงเหลือ: ${balance} บาท`;
+
+    count++;
+    document.getElementById("detail").value = "";
+    document.getElementById("amount").value = "";
+}
+</script>
+
+</body>
+</html>
